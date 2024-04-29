@@ -1,13 +1,15 @@
+package org.opencelements.atlas.domain;
+
 import java.util.UUID;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import org.opencelements.atlas.domain.DataObject;
 
 @Getter
 @Builder
 public class Document {
 
     private final UUID id;
-    private final ImmutableList<DataObject> objects;
+    private final List<DataObject> objects;
 
 }
