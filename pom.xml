@@ -39,6 +39,11 @@
       <artifactId>mapstruct</artifactId>
         <version>1.5.5.Final</version>
     </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+    </dependency>
 
     <!-- Test Dependencies -->
 		<dependency>
