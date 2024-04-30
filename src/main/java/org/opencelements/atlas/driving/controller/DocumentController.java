@@ -1,12 +1,14 @@
 package org.opencelements.atlas.driving.controller;
 
 import java.util.UUID;
-import org.opencelements.atlas.driving.dto.DocumentCreationResponse;
 import org.opencelements.atlas.driving.dto.DocumentDto;
+import org.opencelements.atlas.exceptions.DocumentCreationException;
+import org.opencelements.atlas.exceptions.DocumentNotFoundException;
 import org.opencelements.atlas.mapper.Mapper;
 import org.opencelements.atlas.services.DocumentCreationService;
 import org.opencelements.atlas.services.DocumentLoadService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,16 +39,8 @@ public class DocumentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DocumentCreationResponse create() {
-        var docCreationResp = new DocumentCreationResponse();
-        try {
-            docCreationResp.setId(docCreateSrv.create());
-            docCreationResp.setSuccessful(true);
-        } catch (Exception exp) {
-            docCreationResp.setSuccessful(false);
-            docCreationResp.setErrormessage(exp.getMessage());
-        }
-        return docCreationResp;
+    public UUID create() {
+        return docCreateSrv.create();
     }
 
     @GetMapping("/{id}")
@@ -54,5 +48,17 @@ public class DocumentController {
     public DocumentDto get(@PathVariable UUID id) {
         var doc = docLoadSrv.load(id);
         return mapper.toDocumentDto(doc);
+    }
+
+    @ExceptionHandler(DocumentNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String documentNotFoundHandler(DocumentNotFoundException ex) {
+      return ex.getMessage();
+    }
+
+    @ExceptionHandler(DocumentCreationException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String documentNotCreatedHandler(DocumentCreationException ex) {
+      return ex.getMessage();
     }
 }
