@@ -26,7 +26,7 @@ public class DocumentCreationService {
   }
 
 
-  public String create(List<Object> objectData) throws DocumentCreationException {
+  public String create(List<org.bson.Document> objectData) throws DocumentCreationException {
     var objs = objectData.stream()
         .map(obj -> objRepository.save(DataObject.builder().data(obj).build()))
         .toList();
