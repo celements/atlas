@@ -50,7 +50,7 @@ public class DocumentController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public DocumentDto get(@PathVariable UUID id) {
+    public DocumentDto get(@PathVariable String id) {
         var doc = docLoadSrv.load(id);
         return DocumentDto.builder()
           .id(doc.getId())
