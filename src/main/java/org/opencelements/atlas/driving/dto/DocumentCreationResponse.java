@@ -2,14 +2,12 @@ package org.opencelements.atlas.driving.dto;
 
 import java.util.UUID;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
-@Builder
-@Getter
+@Data
 public class DocumentCreationResponse {
   
-  private final UUID id;
+  private UUID id;
   private boolean successful;
   private String errormessage;
     

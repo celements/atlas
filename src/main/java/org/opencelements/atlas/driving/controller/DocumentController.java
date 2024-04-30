@@ -36,11 +36,11 @@ public class DocumentController {
     public DocumentCreationResponse create() {
         var docCreationResp = new DocumentCreationResponse();
         try {
-            docCreationResp.id = docCreateSrv.create();
-            docCreationResp.successful = true;
+            docCreationResp.setId(docCreateSrv.create());
+            docCreationResp.setSuccessful(true);
         } catch (Exception exp) {
-            docCreationResp.successful = false;
-            docCreationResp.errorMessage = exp.getMessage();
+            docCreationResp.setSuccessful(false);
+            docCreationResp.setErrormessage(exp.getMessage());
         }
         return docCreationResp;
     }
