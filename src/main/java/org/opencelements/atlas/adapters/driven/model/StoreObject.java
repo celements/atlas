@@ -1,4 +1,4 @@
-package org.opencelements.atlas.driven.model;
+package org.opencelements.atlas.adapters.driven.model;
 
 import org.springframework.data.annotation.Id;
 
@@ -12,8 +12,8 @@ import lombok.Data;
 @org.springframework.data.mongodb.core.mapping.Document(collection = "objects")
 public class StoreObject {
 
-    @Id
-    private final String id;
-    private final org.bson.Document data;
+  @Id
+  private final String id;
+  private final org.bson.Document data;
 
 }

@@ -1,6 +1,4 @@
-package org.opencelements.atlas.domain;
-
-import java.util.List;
+package org.opencelements.atlas.application.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +7,9 @@ import lombok.Data;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-public class Document {
+public class DataObject {
 
     private final String id;
-    private final List<DataObject> objects;
+    private final org.bson.Document data;
 
 }

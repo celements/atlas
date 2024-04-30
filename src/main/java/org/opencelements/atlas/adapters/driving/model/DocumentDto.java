@@ -1,4 +1,4 @@
-package org.opencelements.atlas.driving.dto;
+package org.opencelements.atlas.adapters.driving.model;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 public class DocumentDto {
 
-      private final String id;
-      private final List<DataObjectDto> objects;
+  private final String id;
+  private final List<DataObjectDto> objects;
 
 }

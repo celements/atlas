@@ -1,4 +1,4 @@
-package org.opencelements.atlas.driven.model;
+package org.opencelements.atlas.adapters.driven.model;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import lombok.Data;
 @org.springframework.data.mongodb.core.mapping.Document(collection = "document")
 public class StoreDocument {
 
-    @Id
-    private final String id;
-    @DBRef
-    private final List<StoreObject> objects;
+  @Id
+  private final String id;
+  @DBRef
+  private final List<StoreObject> objects;
 
 }

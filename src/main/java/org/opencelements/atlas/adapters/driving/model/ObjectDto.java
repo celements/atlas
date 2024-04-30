@@ -1,10 +1,9 @@
-package org.opencelements.atlas.driving.dto;
+package org.opencelements.atlas.adapters.driving.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
-
 
 @Data
 @Builder(toBuilder = true)
