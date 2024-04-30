@@ -47,12 +47,14 @@ public class AtlasApplication {
   private static void testInsertion(BeanFactory bf) {
     var docRepo = bf.getBean(DocumentRepository.class);
     var objRepo = bf.getBean(DataObjectRepository.class);
-    var dataObj = objRepo.save(DataObject.builder()
-      .data("helloworld")
-      .build());
-    docRepo.save(Document.builder()
-        .objects(List.of(dataObj))
+    if (docRepo.count() == 0) {
+      var dataObj = objRepo.save(DataObject.builder()
+        .data("helloworld")
         .build());
+      docRepo.save(Document.builder()
+          .objects(List.of(dataObj))
+          .build());   
+    }
     LOG.info("Docs in DB: {}", docRepo.findAll());
   }
 
