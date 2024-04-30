@@ -40,8 +40,8 @@ public class DocumentController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody List<Object> objectData) {
-        return createService.create(objectData);
+    public String create() {
+        return createService.create(List.of("Hallo"));
     }
 
     @GetMapping("/{id}")
