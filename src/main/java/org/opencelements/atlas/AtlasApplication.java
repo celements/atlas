@@ -47,9 +47,9 @@ public class AtlasApplication {
     var store = bf.getBean(StoreService.class);
     if (store.count() == 0) {
       var dataObj = DataObject.builder()
-        .data("helloworld")
+        .data(new org.bson.Document("hello", "world"))
         .build();
-      store.create(List.of(dataObj));   
+      store.create(List.of(dataObj));
     }
     LOG.info("Docs in DB: {}", store.findAll());
   }

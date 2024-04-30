@@ -10,6 +10,6 @@ import lombok.Data;
 public class DataObject {
 
     private final String id;
-    private final Object data;
+    private final org.bson.Document data;
 
 }
