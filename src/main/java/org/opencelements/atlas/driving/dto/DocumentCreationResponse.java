@@ -1,7 +1,5 @@
 package org.opencelements.atlas.driving.dto;
 
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +13,7 @@ import lombok.extern.jackson.Jacksonized;
 @NoArgsConstructor
 public class DocumentCreationResponse {
   
-  private UUID id;
+  private String id;
   private boolean successful;
   private String errormessage;
     
