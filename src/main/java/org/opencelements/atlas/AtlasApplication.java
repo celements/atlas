@@ -49,7 +49,7 @@ public class AtlasApplication {
     var docRepo = bf.getBean(DocumentRepository.class);
     var objRepo = bf.getBean(DataObjectRepository.class);
     var dataObj = objRepo.save(DataObject.builder()
-      .data("helloworld")
+      .data(new org.bson.Document("hello", "world"))
       .build());
     docRepo.save(Document.builder()
         .objects(List.of(dataObj))
