@@ -1,8 +1,6 @@
 package org.opencelements.atlas.driving.controller;
 
 import java.util.List;
-import java.util.UUID;
-import org.opencelements.atlas.driving.dto.DocumentCreationResponse;
 import org.opencelements.atlas.driving.dto.DocumentDto;
 import org.opencelements.atlas.exceptions.DocumentCreationException;
 import org.opencelements.atlas.exceptions.DocumentNotFoundException;
