@@ -1,8 +1,8 @@
 package org.opencelements.atlas.exceptions;
 
-public class DocumentCreationException extends RuntimeException {
+public class DocumentCreationException extends Exception {
 
-  public DocumentCreationException(){
-    super("Document could not be created.");
+  public DocumentCreationException(String reason) {
+    super("Document could not be created: " + reason);
   }
 }

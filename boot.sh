@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail # strict mode
 
+! command -v docker > /dev/null && echo 'docker command missing' && exit 1
 [ ! -f .env ] && echo 'no .env file `cp sample.env .env`' && exit 1
 [ ! -f mongo/.env ] && echo 'no mongo/.env file `cp mongo/sample.env mongo/.env`' && exit 1
 

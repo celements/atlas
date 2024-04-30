@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opencelements.atlas.domain.DataObject;
+import org.opencelements.atlas.exceptions.DocumentCreationException;
 import org.opencelements.atlas.services.StoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class AtlasApplication {
 
   private static final Logger LOG = LoggerFactory.getLogger(AtlasApplication.class);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     ConfigurableApplicationContext context = null;
     try {
       context = SpringApplication.run(AtlasApplication.class, args);
@@ -42,7 +43,7 @@ public class AtlasApplication {
     }
   }
 
-  private static void testInsertion(BeanFactory bf) {
+  private static void testInsertion(BeanFactory bf) throws DocumentCreationException {
     var store = bf.getBean(StoreService.class);
     if (store.count() == 0) {
       var dataObj = DataObject.builder()

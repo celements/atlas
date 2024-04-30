@@ -11,6 +11,8 @@ import org.opencelements.atlas.driven.model.StoreObject;
 import org.opencelements.atlas.driven.mongo.DataObjectRepository;
 import org.opencelements.atlas.driven.mongo.DocumentRepository;
 import org.opencelements.atlas.exceptions.DocumentCreationException;
+import org.opencelements.atlas.exceptions.DocumentNotFoundException;
+import org.opencelements.atlas.exceptions.DocumentUpdateException;
 import org.springframework.stereotype.Service;
 
 import jakarta.inject.Inject;
@@ -30,11 +32,30 @@ public class StoreService {
   }
 
   public String create(List<DataObject> objectData) throws DocumentCreationException {
-    var objs = objectData.stream()
-        .map(obj -> objRepository.save(StoreObject.builder().data(obj.getData()).build()))
-        .toList();
-    var doc = docRepository.save(StoreDocument.builder().objects(objs).build());
-    return doc.getId();
+    try {
+      var objs = objectData.stream()
+          .map(obj -> objRepository.save(StoreObject.builder().data(obj.getData()).build()))
+          .toList();
+      var doc = docRepository.save(StoreDocument.builder().objects(objs).build());
+      return doc.getId();
+    } catch (Exception e) {
+      throw new DocumentCreationException(e.getMessage());
+    }
+  }
+
+  public void update(String id, List<DataObject> objectData)
+      throws DocumentNotFoundException, DocumentUpdateException {
+    try {
+      var doc = docRepository.findById(id)
+          .orElseThrow(() -> new DocumentNotFoundException(id));
+      objRepository.deleteAll(doc.getObjects());
+      var objs = objectData.stream()
+          .map(obj -> objRepository.save(StoreObject.builder().data(obj.getData()).build()))
+          .toList();
+      docRepository.save(doc.toBuilder().objects(objs).build());
+    } catch (Exception e) {
+      throw new DocumentUpdateException(id, e.getMessage());
+    }
   }
 
   public long count() {
