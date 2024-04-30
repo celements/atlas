@@ -6,7 +6,8 @@ import org.opencelements.atlas.driving.dto.DocumentDto;
 import org.opencelements.atlas.driving.mapper.DrivingMapper;
 import org.opencelements.atlas.exceptions.DocumentCreationException;
 import org.opencelements.atlas.exceptions.DocumentNotFoundException;
-import org.opencelements.atlas.services.DocumentCreationService;
+import org.opencelements.atlas.exceptions.DocumentUpdateException;
+import org.opencelements.atlas.services.DocumentWriteService;
 import org.opencelements.atlas.services.DocumentLoadService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,48 +21,64 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.inject.Inject;
-
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/documents")
 public class DocumentController {
 
-    private final DocumentCreationService createService;
-    private final DocumentLoadService loadService;
-    private final DrivingMapper mapper;
+  private final DocumentWriteService writeService;
+  private final DocumentLoadService loadService;
+  private final DrivingMapper mapper;
 
-    @Inject
-    public DocumentController(
-        DocumentCreationService createService, 
-        DocumentLoadService loadService,
-        DrivingMapper mapper) {
-      this.createService = createService;
-      this.loadService = loadService;
-      this.mapper = mapper;
-    }
+  @Inject
+  public DocumentController(
+      DocumentWriteService createService,
+      DocumentLoadService loadService,
+      DrivingMapper mapper) {
+    this.writeService = createService;
+    this.loadService = loadService;
+    this.mapper = mapper;
+  }
 
-    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody List<org.bson.Document> objectData) {
-        return createService.create(objectData);
-    }
+  @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.CREATED)
+  public String create(@RequestBody List<org.bson.Document> objectData)
+      throws DocumentCreationException {
+    return writeService.create(objectData);
+  }
 
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public DocumentDto get(@PathVariable String id) {
-      var doc = loadService.load(id);
-      return mapper.toDocumentDto(doc);
-    }
+  @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public void update(
+      @PathVariable String id,
+      @RequestBody List<org.bson.Document> objectData)
+      throws DocumentNotFoundException, DocumentUpdateException {
+    writeService.update(id, objectData);
+  }
 
-    @ExceptionHandler(DocumentNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String documentNotFoundHandler(DocumentNotFoundException ex) {
-      return ex.getMessage();
-    }
+  @GetMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public DocumentDto get(@PathVariable String id) throws DocumentNotFoundException {
+    var doc = loadService.load(id);
+    return mapper.toDocumentDto(doc);
+  }
 
-    @ExceptionHandler(DocumentCreationException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String documentNotCreatedHandler(DocumentCreationException ex) {
-      return ex.getMessage();
-    }
+  @ExceptionHandler(DocumentNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  String documentNotFoundHandler(DocumentNotFoundException ex) {
+    return ex.getMessage();
+  }
+
+  @ExceptionHandler(DocumentCreationException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  String documentNotCreatedHandler(DocumentCreationException ex) {
+    return ex.getMessage();
+  }
+
+  @ExceptionHandler(DocumentUpdateException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  String documentNotUpdatedHandler(DocumentUpdateException ex) {
+    return ex.getMessage();
+  }
 }

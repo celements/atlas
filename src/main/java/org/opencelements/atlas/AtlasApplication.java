@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opencelements.atlas.domain.DataObject;
-import org.opencelements.atlas.domain.Document;
-import org.opencelements.atlas.driven.mongo.DataObjectRepository;
-import org.opencelements.atlas.driven.mongo.DocumentRepository;
+import org.opencelements.atlas.exceptions.DocumentCreationException;
+import org.opencelements.atlas.services.StoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -23,7 +21,7 @@ public class AtlasApplication {
 
   private static final Logger LOG = LoggerFactory.getLogger(AtlasApplication.class);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     ConfigurableApplicationContext context = null;
     try {
       context = SpringApplication.run(AtlasApplication.class, args);
@@ -45,16 +43,15 @@ public class AtlasApplication {
     }
   }
 
-  private static void testInsertion(BeanFactory bf) {
-    var docRepo = bf.getBean(DocumentRepository.class);
-    var objRepo = bf.getBean(DataObjectRepository.class);
-    var dataObj = objRepo.save(DataObject.builder()
-      .data(new org.bson.Document("hello", "world"))
-      .build());
-    docRepo.save(Document.builder()
-        .objects(List.of(dataObj))
-        .build());
-    LOG.info("Docs in DB: {}", docRepo.findAll());
+  private static void testInsertion(BeanFactory bf) throws DocumentCreationException {
+    var store = bf.getBean(StoreService.class);
+    if (store.count() == 0) {
+      var dataObj = DataObject.builder()
+        .data(new org.bson.Document("hello", "world"))
+        .build();
+      store.create(List.of(dataObj));
+    }
+    LOG.info("Docs in DB: {}", store.findAll());
   }
 
 }
