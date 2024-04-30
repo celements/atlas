@@ -32,12 +32,14 @@ public class Mapper {
   public DataObject toDataObject(DataObjectDto objDto) {
     return DataObject.builder()
       .id(objDto.getId())
+      .data(objDto.getData())
       .build();
   }
 
   public DataObjectDto toDataObjectDto(DataObject obj) {
     return DataObjectDto.builder()
       .id(obj.getId())
+      .data(obj.getData())
       .build();
   }
 
