@@ -1,6 +1,7 @@
 package org.opencelements.atlas.driving.controller;
 
 import java.util.List;
+
 import org.opencelements.atlas.driving.dto.DocumentDto;
 import org.opencelements.atlas.exceptions.DocumentCreationException;
 import org.opencelements.atlas.exceptions.DocumentNotFoundException;
@@ -8,6 +9,7 @@ import org.opencelements.atlas.mapper.Mapper;
 import org.opencelements.atlas.services.DocumentCreationService;
 import org.opencelements.atlas.services.DocumentLoadService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,10 +40,10 @@ public class DocumentController {
       this.mapper = mapper;
     }
 
-    @PostMapping("/create")
+    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public String create() {
-        return createService.create(List.of("Hallo"));
+    public String create(@RequestBody List<org.bson.Document> objectData) {
+        return createService.create(objectData);
     }
 
     @GetMapping("/{id}")
