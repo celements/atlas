@@ -5,8 +5,7 @@ import java.util.List;
 
 import org.opencelements.atlas.domain.DataObject;
 import org.opencelements.atlas.domain.Document;
-import org.opencelements.atlas.driven.mongo.DataObjectRepository;
-import org.opencelements.atlas.driven.mongo.DocumentRepository;
+import org.opencelements.atlas.services.StoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -45,17 +44,14 @@ public class AtlasApplication {
   }
 
   private static void testInsertion(BeanFactory bf) {
-    var docRepo = bf.getBean(DocumentRepository.class);
-    var objRepo = bf.getBean(DataObjectRepository.class);
-    if (docRepo.count() == 0) {
-      var dataObj = objRepo.save(DataObject.builder()
+    var store = bf.getBean(StoreService.class);
+    if (store.count() == 0) {
+      var dataObj = DataObject.builder()
         .data("helloworld")
-        .build());
-      docRepo.save(Document.builder()
-          .objects(List.of(dataObj))
-          .build());   
+        .build();
+      store.create(List.of(dataObj));   
     }
-    LOG.info("Docs in DB: {}", docRepo.findAll());
+    LOG.info("Docs in DB: {}", store.findAll());
   }
 
 }
