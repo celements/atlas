@@ -1,5 +1,6 @@
 package org.opencelements.atlas.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Data;
 @Document(collection = "objects")
 public class DataObject {
 
+    @Id
     private final String id;
     private final Object data;
 
