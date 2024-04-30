@@ -1,7 +1,5 @@
 package org.opencelements.atlas.domain;
 
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class DataObject {
 
-    private final UUID id;
+    private final String id;
 
 }
