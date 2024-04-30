@@ -42,8 +42,12 @@ public class StoreService {
 
   public List<Document> findAll() {
     var stream = docRepository.findAll().stream();
-    Function<StoreObject, DataObject> objMapper = (obj -> DataObject.builder().data(obj.getData()).build());
+    Function<StoreObject, DataObject> objMapper = (obj -> DataObject.builder()
+        .id(obj.getId())
+        .data(obj.getData())
+        .build());
     Function<StoreDocument, Document> docMapper = doc -> Document.builder()
+        .id(doc.getId())
         .objects(doc.getObjects().stream().map(objMapper).toList())
         .build();
     return stream.map(docMapper).toList();
