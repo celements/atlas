@@ -1,4 +1,4 @@
-package org.opencelements.atlas.mapper;
+package org.opencelements.atlas.driving.mapper;
 
 import java.util.stream.Collectors;
 

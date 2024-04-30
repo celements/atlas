@@ -3,9 +3,9 @@ package org.opencelements.atlas.driving.controller;
 import java.util.List;
 
 import org.opencelements.atlas.driving.dto.DocumentDto;
+import org.opencelements.atlas.driving.mapper.Mapper;
 import org.opencelements.atlas.exceptions.DocumentCreationException;
 import org.opencelements.atlas.exceptions.DocumentNotFoundException;
-import org.opencelements.atlas.mapper.Mapper;
 import org.opencelements.atlas.services.DocumentCreationService;
 import org.opencelements.atlas.services.DocumentLoadService;
 import org.springframework.http.HttpStatus;
