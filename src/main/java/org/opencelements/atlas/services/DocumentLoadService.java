@@ -1,6 +1,8 @@
-package org.opencelements.atlas.driving.dto;
+package org.opencelements.atlas.services;
 
 import java.util.UUID;
+
+import org.opencelements.atlas.driving.dto.DocumentCreationResponse;
 
 public class DocumentLoadService {
 

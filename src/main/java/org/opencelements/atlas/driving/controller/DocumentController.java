@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.inject.Inject;
 import java.util.UUID;
 
-import org.opencelements.atlas.driving.dto.DocumentCreationService;
-import org.opencelements.atlas.driving.dto.DocumentLoadService;
+import org.opencelements.atlas.services.DocumentCreationService;
+import org.opencelements.atlas.services.DocumentLoadService;
 import org.springframework.http.HttpStatus;
 
 import org.opencelements.atlas.driving.dto.DocumentCreationResponse;
