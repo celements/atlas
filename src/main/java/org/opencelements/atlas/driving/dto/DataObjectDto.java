@@ -13,5 +13,6 @@ import lombok.extern.jackson.Jacksonized;
 public class DataObjectDto {
 
   private final String id;
+  private final org.bson.Document data;
 
 }
