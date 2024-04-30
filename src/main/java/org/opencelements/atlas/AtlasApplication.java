@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opencelements.atlas.domain.DataObject;
-import org.opencelements.atlas.domain.Document;
 import org.opencelements.atlas.services.StoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
