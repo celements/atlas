@@ -1,4 +1,4 @@
-package org.opencelements.atlas.exceptions;
+package org.opencelements.atlas.application.exceptions;
 
 public class DocumentNotFoundException extends Exception {
 

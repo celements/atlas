@@ -9,9 +9,9 @@ import lombok.Data;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-public class Document {
+public class AtlasDocument {
 
     private final String id;
-    private final List<DataObject> objects;
+    private final List<AtlasObject> objects;
 
 }

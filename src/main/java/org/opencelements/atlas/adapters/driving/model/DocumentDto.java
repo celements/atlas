@@ -14,6 +14,6 @@ import lombok.extern.jackson.Jacksonized;
 public class DocumentDto {
 
   private final String id;
-  private final List<DataObjectDto> objects;
+  private final List<ObjectDto> objects;
 
 }

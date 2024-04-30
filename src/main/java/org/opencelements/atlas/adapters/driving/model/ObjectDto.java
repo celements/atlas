@@ -9,7 +9,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder(toBuilder = true)
 @Jacksonized
 @AllArgsConstructor
-public class DataObjectDto {
+public class ObjectDto {
 
   private final String id;
   private final org.bson.Document data;

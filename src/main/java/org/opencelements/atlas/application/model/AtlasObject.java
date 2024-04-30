@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-public class DataObject {
+public class AtlasObject {
 
     private final String id;
     private final org.bson.Document data;
