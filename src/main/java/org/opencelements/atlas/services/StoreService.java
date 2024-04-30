@@ -1,6 +1,7 @@
 package org.opencelements.atlas.services;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.opencelements.atlas.domain.DataObject;
 import org.opencelements.atlas.domain.Document;
@@ -40,12 +41,12 @@ public class StoreService {
   }
 
   public List<Document> findAll() {
-    return docRepository.findAll().stream()
-        .map(doc -> Document.builder()
-            .objects(doc.getObjects().stream()
-                .map(obj -> DataObject.builder().data(obj.getData()).build())
-                .toList())
-            .build()).toList();
+    var stream = docRepository.findAll().stream();
+    Function<StoreObject, DataObject> objMapper = (obj -> DataObject.builder().data(obj.getData()).build());
+    Function<StoreDocument, Document> docMapper = doc -> Document.builder()
+        .objects(doc.getObjects().stream().map(objMapper).toList())
+        .build();
+    return stream.map(docMapper).toList();
   }
 
 }

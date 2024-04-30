@@ -14,6 +14,6 @@ public class StoreObject {
 
     @Id
     private final String id;
-    private final Object data;
+    private final org.bson.Document data;
 
 }
