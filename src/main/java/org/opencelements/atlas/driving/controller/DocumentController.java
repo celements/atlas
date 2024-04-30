@@ -1,11 +1,9 @@
 package org.opencelements.atlas.driving.controller;
 
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import org.opencelements.atlas.driving.dto.DataObjectDto;
 import org.opencelements.atlas.driving.dto.DocumentCreationResponse;
 import org.opencelements.atlas.driving.dto.DocumentDto;
+import org.opencelements.atlas.mapper.Mapper;
 import org.opencelements.atlas.services.DocumentCreationService;
 import org.opencelements.atlas.services.DocumentLoadService;
 import org.springframework.http.HttpStatus;
@@ -25,13 +23,16 @@ public class DocumentController {
 
     private final DocumentCreationService docCreateSrv;
     private final DocumentLoadService docLoadSrv;
+    private final Mapper mapper;
 
     @Inject
     public DocumentController(
         DocumentCreationService docCreateSrv, 
-        DocumentLoadService docLoadSrv) {
+        DocumentLoadService docLoadSrv,
+        Mapper mapper) {
         this.docCreateSrv = docCreateSrv;
         this.docLoadSrv = docLoadSrv;
+        this.mapper = mapper;
     }
 
     @PostMapping
@@ -52,13 +53,6 @@ public class DocumentController {
     @ResponseStatus(HttpStatus.OK)
     public DocumentDto get(@PathVariable UUID id) {
         var doc = docLoadSrv.load(id);
-        return DocumentDto.builder()
-          .id(doc.getId())
-          .objects(doc.getObjects().stream()
-            .map(obj -> DataObjectDto.builder()
-              .id(obj.getId())
-              .build())
-            .collect(Collectors.toList()))
-          .build();
+        return mapper.toDocumentDto(doc);
     }
 }
