@@ -3,7 +3,7 @@ package org.opencelements.atlas.driving.controller;
 import java.util.List;
 
 import org.opencelements.atlas.driving.dto.DocumentDto;
-import org.opencelements.atlas.driving.mapper.Mapper;
+import org.opencelements.atlas.driving.mapper.DrivingMapper;
 import org.opencelements.atlas.exceptions.DocumentCreationException;
 import org.opencelements.atlas.exceptions.DocumentNotFoundException;
 import org.opencelements.atlas.services.DocumentCreationService;
@@ -28,13 +28,13 @@ public class DocumentController {
 
     private final DocumentCreationService createService;
     private final DocumentLoadService loadService;
-    private final Mapper mapper;
+    private final DrivingMapper mapper;
 
     @Inject
     public DocumentController(
         DocumentCreationService createService, 
         DocumentLoadService loadService,
-        Mapper mapper) {
+        DrivingMapper mapper) {
       this.createService = createService;
       this.loadService = loadService;
       this.mapper = mapper;
