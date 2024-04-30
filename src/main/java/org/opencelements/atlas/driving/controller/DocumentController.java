@@ -1,6 +1,8 @@
 package org.opencelements.atlas.driving.controller;
 
+import java.util.List;
 import java.util.UUID;
+import org.opencelements.atlas.driving.dto.DocumentCreationResponse;
 import org.opencelements.atlas.driving.dto.DocumentDto;
 import org.opencelements.atlas.exceptions.DocumentCreationException;
 import org.opencelements.atlas.exceptions.DocumentNotFoundException;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,31 +26,31 @@ import jakarta.inject.Inject;
 @RequestMapping("/api/documents")
 public class DocumentController {
 
-    private final DocumentCreationService docCreateSrv;
-    private final DocumentLoadService docLoadSrv;
+    private final DocumentCreationService createService;
+    private final DocumentLoadService loadService;
     private final Mapper mapper;
 
     @Inject
     public DocumentController(
-        DocumentCreationService docCreateSrv, 
-        DocumentLoadService docLoadSrv,
+        DocumentCreationService createService, 
+        DocumentLoadService loadService,
         Mapper mapper) {
-        this.docCreateSrv = docCreateSrv;
-        this.docLoadSrv = docLoadSrv;
-        this.mapper = mapper;
+      this.createService = createService;
+      this.loadService = loadService;
+      this.mapper = mapper;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID create() {
-        return docCreateSrv.create();
+    public String create(@RequestBody List<Object> objectData) {
+        return createService.create(objectData);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public DocumentDto get(@PathVariable UUID id) {
-        var doc = docLoadSrv.load(id);
-        return mapper.toDocumentDto(doc);
+    public DocumentDto get(@PathVariable String id) {
+      var doc = loadService.load(id);
+      return mapper.toDocumentDto(doc);
     }
 
     @ExceptionHandler(DocumentNotFoundException.class)

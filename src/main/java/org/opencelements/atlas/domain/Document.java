@@ -1,7 +1,9 @@
 package org.opencelements.atlas.domain;
 
 import java.util.List;
-import java.util.UUID;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +12,12 @@ import lombok.Data;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
+@org.springframework.data.mongodb.core.mapping.Document(collection = "document")
 public class Document {
 
-    private final UUID id;
+    @Id
+    private final String id;
+    @DBRef
     private final List<DataObject> objects;
 
 }
