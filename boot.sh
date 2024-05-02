@@ -6,7 +6,6 @@ set -euo pipefail # strict mode
 [ ! -f mongo/.env ] && echo 'no mongo/.env file `cp mongo/sample.env mongo/.env`' && exit 1
 
 compose='docker compose --env-file .env --env-file mongo/.env'
-$compose pull
 $compose up -d
 
 set -a # enable auto export

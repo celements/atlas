@@ -1,0 +1,18 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application.name: celements-atlas
+  profiles.active: ${PROFILE:dev}
+  output.ansi.enabled: always
+  data.mongodb:
+    host: 127.0.0.1
+    port: 27017
+    database: ${MONGODB_DATABASE}
+    username: ${MONGODB_USER}
+    password: ${MONGODB_PASS}
+
+logging:
+  level:
+    root: WARN
+    org.opencelements: ${LOG_LEVEL:INFO}
