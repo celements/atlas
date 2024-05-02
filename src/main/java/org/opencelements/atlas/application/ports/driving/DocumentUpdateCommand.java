@@ -1,8 +1,8 @@
-package org.opencelements.atlas.application.ports.driven;
+package org.opencelements.atlas.application.ports.driving;
 
-import org.opencelements.atlas.application.exceptions.DocumentNotFoundException;
-import org.opencelements.atlas.application.exceptions.DocumentUpdateException;
 import org.opencelements.atlas.application.model.AtlasDocument;
+import org.opencelements.atlas.application.model.exceptions.DocumentNotFoundException;
+import org.opencelements.atlas.application.model.exceptions.DocumentUpdateException;
 
 import jakarta.validation.constraints.NotNull;
 

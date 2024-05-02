@@ -7,12 +7,12 @@ import java.util.function.Function;
 
 import org.opencelements.atlas.adapters.driven.model.StoreDocument;
 import org.opencelements.atlas.adapters.driven.model.StoreObject;
-import org.opencelements.atlas.application.exceptions.DocumentCreationException;
-import org.opencelements.atlas.application.exceptions.DocumentNotFoundException;
-import org.opencelements.atlas.application.exceptions.DocumentUpdateException;
 import org.opencelements.atlas.application.model.AtlasDocument;
 import org.opencelements.atlas.application.model.AtlasObject;
-import org.opencelements.atlas.application.ports.driving.DocumentStore;
+import org.opencelements.atlas.application.model.exceptions.DocumentCreationException;
+import org.opencelements.atlas.application.model.exceptions.DocumentNotFoundException;
+import org.opencelements.atlas.application.model.exceptions.DocumentUpdateException;
+import org.opencelements.atlas.application.ports.driven.DocumentStore;
 import org.springframework.stereotype.Service;
 
 import jakarta.inject.Inject;

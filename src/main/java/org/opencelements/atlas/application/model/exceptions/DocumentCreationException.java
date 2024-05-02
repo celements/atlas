@@ -1,4 +1,4 @@
-package org.opencelements.atlas.application.exceptions;
+package org.opencelements.atlas.application.model.exceptions;
 
 public class DocumentCreationException extends Exception {
 

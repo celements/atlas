@@ -1,13 +1,13 @@
 package org.opencelements.atlas.application;
 
-import org.opencelements.atlas.application.exceptions.DocumentCreationException;
-import org.opencelements.atlas.application.exceptions.DocumentNotFoundException;
-import org.opencelements.atlas.application.exceptions.DocumentUpdateException;
 import org.opencelements.atlas.application.model.AtlasDocument;
-import org.opencelements.atlas.application.ports.driven.DocumentCreateCommand;
-import org.opencelements.atlas.application.ports.driven.DocumentLoadCommand;
-import org.opencelements.atlas.application.ports.driven.DocumentUpdateCommand;
-import org.opencelements.atlas.application.ports.driving.DocumentStore;
+import org.opencelements.atlas.application.model.exceptions.DocumentCreationException;
+import org.opencelements.atlas.application.model.exceptions.DocumentNotFoundException;
+import org.opencelements.atlas.application.model.exceptions.DocumentUpdateException;
+import org.opencelements.atlas.application.ports.driven.DocumentStore;
+import org.opencelements.atlas.application.ports.driving.DocumentCreateCommand;
+import org.opencelements.atlas.application.ports.driving.DocumentLoadCommand;
+import org.opencelements.atlas.application.ports.driving.DocumentUpdateCommand;
 import org.springframework.stereotype.Service;
 
 import jakarta.inject.Inject;

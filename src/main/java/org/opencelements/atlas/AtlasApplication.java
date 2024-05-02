@@ -3,10 +3,10 @@ package org.opencelements.atlas;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opencelements.atlas.application.exceptions.DocumentCreationException;
 import org.opencelements.atlas.application.model.AtlasDocument;
 import org.opencelements.atlas.application.model.AtlasObject;
-import org.opencelements.atlas.application.ports.driving.DocumentStore;
+import org.opencelements.atlas.application.model.exceptions.DocumentCreationException;
+import org.opencelements.atlas.application.ports.driven.DocumentStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
